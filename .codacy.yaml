@@ -1,0 +1,12 @@
+---
+engines:
+  pylint:
+    enabled: true
+    exclude_paths:
+      - 'LICENSE'
+  revive:
+    enabled: true
+    exclude_paths:
+      - 'LICENSE'
+exclude_paths:
+  - 'LICENSE'

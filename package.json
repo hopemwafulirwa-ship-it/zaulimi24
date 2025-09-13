@@ -1,0 +1,53 @@
+{
+  "name": "zaulimi24",
+  "version": "1.0.0",
+  "description": "E-commerce platform for fresh farm produce connecting local sellers with consumers",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "build": "concurrently \"npm run build:server\" \"npm run build:client\"",
+    "build:server": "cd server && npm run build",
+    "build:client": "cd client && npm run build",
+    "start": "concurrently \"npm run start:server\" \"npm run start:client\"",
+    "start:server": "cd server && npm start",
+    "start:client": "cd client && npm start",
+    "test": "concurrently \"npm run test:server\" \"npm run test:client\"",
+    "test:server": "cd server && npm test",
+    "test:client": "cd client && npm test",
+    "lint": "concurrently \"npm run lint:server\" \"npm run lint:client\"",
+    "lint:server": "cd server && npm run lint",
+    "lint:client": "cd client && npm run lint",
+    "docs": "cd docs && npx serve",
+    "prepare": "husky install"
+  },
+  "keywords": [
+    "e-commerce",
+    "farm-produce",
+    "local-market",
+    "nextjs",
+    "nodejs",
+    "express",
+    "firebase",
+    "postgres"
+  ],
+  "author": "Zaulimi24 Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^7.6.0",
+    "husky": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/zaulimi24.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/zaulimi24/issues"
+  },
+  "homepage": "https://github.com/your-org/zaulimi24#readme"
+}
