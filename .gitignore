@@ -121,6 +121,3 @@ temp/
 
 # Documentation
 docs/.DS_Store
-
-# License file (to prevent analysis tools from parsing it as code)
-LICENSE
