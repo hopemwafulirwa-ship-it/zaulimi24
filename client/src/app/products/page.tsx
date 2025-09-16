@@ -3,10 +3,10 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { getProducts } from '@/services/api';
-import { useAuth } from '../context/authContext';
 import { useCart } from '../context/cartContext';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import ProductDetailModal from '../components/ProductDetailModal';
 
 interface Product {
   id: string;
@@ -24,6 +24,8 @@ export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { addToCart } = useCart();
   
   console.log('ProductsPage component rendered');
@@ -80,14 +82,26 @@ export default function ProductsPage() {
   }
 
   // Add to cart handler
-  const handleAddToCart = async (product: Product) => {
+  const handleAddToCart = async (product: Product, quantity: number = 1) => {
     try {
-      await addToCart(product, 1);
+      await addToCart(product, quantity);
       // You could add a toast notification here
     } catch (err) {
       console.error('Error adding to cart:', err);
       // You could show an error message to the user
     }
+  };
+
+  // View product details handler
+  const handleViewDetails = (product: Product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
+
+  // Close modal handler
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedProduct(null);
   };
 
   return (
@@ -99,13 +113,13 @@ export default function ProductsPage() {
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Our Fresh Produce</h1>
           <div className="flex space-x-4">
-            <select className="border border-gray-300 rounded-lg px-4 py-2">
+            <select className="border border-green-600 rounded-lg px-4 py-2 bg-white text-gray-700 font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500">
               <option>All Categories</option>
               <option>Vegetables</option>
               <option>Fruits</option>
               <option>Herbs</option>
             </select>
-            <select className="border border-gray-300 rounded-lg px-4 py-2">
+            <select className="border border-green-600 rounded-lg px-4 py-2 bg-white text-gray-700 font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500">
               <option>Sort by: Featured</option>
               <option>Price: Low to High</option>
               <option>Price: High to Low</option>
@@ -152,18 +166,34 @@ export default function ProductsPage() {
                     <span className="text-lg font-bold text-green-600">MK {product.price.toFixed(2)}</span>
                     <span className="text-sm text-gray-500">{product.stock} {product.unit} available</span>
                   </div>
-                  <button 
-                    onClick={() => handleAddToCart(product)}
-                    className="mt-4 w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors"
-                  >
-                    Add to Cart
-                  </button>
+                  <div className="mt-4 flex space-x-2">
+                    <button 
+                      onClick={() => handleViewDetails(product)}
+                      className="flex-1 border border-green-600 text-green-600 py-2 rounded-lg hover:bg-green-50 transition-colors"
+                    >
+                      View Details
+                    </button>
+                    <button 
+                      onClick={() => handleAddToCart(product)}
+                      className="flex-1 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors"
+                    >
+                      Add to Cart
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         )}
       </main>
+
+      {/* Product Detail Modal */}
+      <ProductDetailModal 
+        product={selectedProduct} 
+        isOpen={isModalOpen} 
+        onClose={handleCloseModal}
+        onAddToCart={handleAddToCart}
+      />
 
       <Footer />
     </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { addToCart as apiAddToCart, getCart as apiGetCart } from '../../services/api';
+// import { addToCart as apiAddToCart, getCart as apiGetCart } from '../../services/api'; // Not used in mock implementation
 
 // Define types
 interface Product {

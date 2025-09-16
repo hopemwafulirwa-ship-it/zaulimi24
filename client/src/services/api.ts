@@ -18,6 +18,7 @@ interface LoginCredentials {
 }
 
 interface ProductData {
+  id: string;
   name: string;
   description: string;
   price: number;
@@ -25,6 +26,7 @@ interface ProductData {
   category: string;
   unit: string;
   organic: boolean;
+  imageUrl?: string;
 }
 
 interface CartItem {
@@ -108,16 +110,25 @@ export const loginUser = (credentials: LoginCredentials) => apiRequest('/auth/lo
 });
 
 // Product services
-export const getProducts = () => {
+export const getProducts = (): Promise<ProductData[]> => {
   console.log('Calling getProducts API');
-  return apiRequest('/products');
+  return apiRequest('/products') as Promise<ProductData[]>;
 };
 
-export const getProductById = (id: string) => apiRequest(`/products/${id}`);
+export const getProductById = (id: string): Promise<ProductData> => apiRequest(`/products/${id}`) as Promise<ProductData>;
 
-export const createProduct = (productData: ProductData) => apiRequest('/products', {
+export const createProduct = (productData: Omit<ProductData, 'id'>) => apiRequest('/products', {
   method: 'POST',
   body: JSON.stringify(productData),
+});
+
+export const updateProduct = (id: string, productData: Partial<Omit<ProductData, 'id'>>) => apiRequest(`/products/${id}`, {
+  method: 'PUT',
+  body: JSON.stringify(productData),
+});
+
+export const deleteProduct = (id: string) => apiRequest(`/products/${id}`, {
+  method: 'DELETE',
 });
 
 // Cart services

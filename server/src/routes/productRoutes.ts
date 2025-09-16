@@ -2,7 +2,7 @@ import express from 'express';
 
 const router = express.Router();
 
-// Mock product data
+// Mock product data with better placeholder images
 const products = [
   {
     id: '1',
@@ -13,7 +13,7 @@ const products = [
     category: 'Vegetables',
     unit: 'kg',
     organic: true,
-    imageUrl: 'https://example.com/tomatoes.jpg'
+    imageUrl: '/placeholder-tomatoes.jpg'
   },
   {
     id: '2',
@@ -24,7 +24,7 @@ const products = [
     category: 'Vegetables',
     unit: 'kg',
     organic: false,
-    imageUrl: 'https://example.com/carrots.jpg'
+    imageUrl: '/placeholder-carrots.jpg'
   },
   {
     id: '3',
@@ -35,7 +35,7 @@ const products = [
     category: 'Fruits',
     unit: 'piece',
     organic: false,
-    imageUrl: 'https://example.com/avocados.jpg'
+    imageUrl: '/placeholder-avocados.jpg'
   }
 ];
 
@@ -51,6 +51,34 @@ router.get('/:id', (req, res) => {
     return res.status(404).json({ message: 'Product not found' });
   }
   return res.json(product);
+});
+
+// PUT /api/products/:id - Update a specific product
+router.put('/:id', (req, res) => {
+  const productIndex = products.findIndex(p => p.id === req.params.id);
+  if (productIndex === -1) {
+    return res.status(404).json({ message: 'Product not found' });
+  }
+  
+  const updatedProduct = {
+    ...products[productIndex],
+    ...req.body,
+    id: req.params.id
+  };
+  
+  products[productIndex] = updatedProduct;
+  return res.json(updatedProduct);
+});
+
+// DELETE /api/products/:id - Delete a specific product
+router.delete('/:id', (req, res) => {
+  const productIndex = products.findIndex(p => p.id === req.params.id);
+  if (productIndex === -1) {
+    return res.status(404).json({ message: 'Product not found' });
+  }
+  
+  products.splice(productIndex, 1);
+  return res.status(204).send();
 });
 
 export default router;

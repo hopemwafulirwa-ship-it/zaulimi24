@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from './components/Header';
 import Footer from './components/Footer';
+import ProductCarousel from './components/ProductCarousel';
 
 export default function Home() {
   return (
@@ -31,30 +32,8 @@ export default function Home() {
             </div>
           </div>
           <div className="md:w-1/2 flex justify-center">
-            <div className="relative">
-              <div className="bg-green-200 rounded-full w-80 h-80 flex items-center justify-center">
-                <Image 
-                  src="/placeholder.svg" 
-                  alt="Fresh farm produce" 
-                  width={300} 
-                  height={300} 
-                  className="rounded-full"
-                />
-              </div>
-              <div className="absolute -bottom-4 -right-4 bg-white p-4 rounded-lg shadow-lg">
-                <div className="flex items-center">
-                  <div className="bg-green-100 p-2 rounded-full mr-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="font-semibold">100% Organic</p>
-                    <p className="text-sm text-gray-500">Fresh & Natural</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {/* Product Carousel */}
+            <ProductCarousel />
           </div>
         </div>
       </section>
@@ -102,12 +81,20 @@ export default function Home() {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Get Fresh Produce?</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">Join thousands of satisfied customers enjoying the freshest farm produce delivered to their doorstep.</p>
-          <Link 
-            href="/products" 
-            className="bg-white text-green-600 font-bold py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors inline-block"
-          >
-            Shop Now
-          </Link>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Link 
+              href="/products" 
+              className="bg-white text-green-600 font-bold py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors inline-block"
+            >
+              Shop Now
+            </Link>
+            <Link 
+              href="/test-pages" 
+              className="bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-lg hover:bg-white hover:text-green-600 transition-colors inline-block"
+            >
+              Test Pages
+            </Link>
+          </div>
         </div>
       </section>
 

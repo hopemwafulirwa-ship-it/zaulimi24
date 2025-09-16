@@ -110,12 +110,18 @@ export default function ProfilePage() {
           </div>
         </div>
         
-        <div className="mt-6 flex justify-end space-x-3">
+        <div className="mt-6 flex flex-wrap gap-3">
           <Link
             href="/"
             className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
           >
             Back to Home
+          </Link>
+          <Link
+            href="/profile/orders"
+            className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+          >
+            Order History
           </Link>
           <button
             onClick={logout}

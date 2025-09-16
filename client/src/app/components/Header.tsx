@@ -21,6 +21,9 @@ export default function Header() {
           <Link href="/cart" className="text-gray-600 hover:text-green-900 font-medium">Cart</Link>
           <Link href="/sellers" className="text-gray-600 hover:text-green-900 font-medium">Sellers</Link>
           <Link href="/about" className="text-gray-600 hover:text-green-900 font-medium">About</Link>
+          {user && user.role === 'seller' && (
+            <Link href="/seller/dashboard" className="text-gray-600 hover:text-green-900 font-medium">Dashboard</Link>
+          )}
         </nav>
         <div className="flex items-center space-x-4">
           <Link href="/cart" className="text-gray-600 hover:text-green-900 relative">
